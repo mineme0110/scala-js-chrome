@@ -1,9 +1,8 @@
 package com.alexitc
 
 import chrome.Manifest
-import io.circe.Printer
-import io.circe.syntax._
 import sbt._
+import upickle.default._
 
 object Chrome {
 
@@ -49,12 +48,11 @@ object Chrome {
     unpacked
   }
 
-  val printer = Printer.noSpaces.copy(dropNullValues = true)
-
   def generateManifest(out: File)(manifest: Manifest): File = {
     import JsonCodecs._
 
-    val content = printer.print(manifest.asJson)
+    // no spaces, drop null values
+    val content = write(manifest)
     IO.write(out, content)
     out
   }

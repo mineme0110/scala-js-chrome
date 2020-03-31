@@ -2,8 +2,7 @@ package com.alexitc
 
 import chrome._
 import chrome.permissions.Permission.{API, Host}
-import io.circe._
-import io.circe.syntax._
+import upickle.default.{ReadWriter => RW, macroRW}
 
 object JsonCodecs {
 
@@ -11,6 +10,7 @@ object JsonCodecs {
     if (seq.isEmpty) Json.Null
     else Json.fromValues(seq.map(encode))
 
+  implicit val sEncoder
   implicit val socketEncoder = Encoder.instance[chrome.Sockets] { sockets =>
     Json.obj(
       ("udp", Json.obj(
