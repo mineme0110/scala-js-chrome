@@ -39,7 +39,8 @@ lazy val bindings = project.in(file("bindings"))
     scalaVersion := "2.12.10",
   //  crossScalaVersions := Seq("2.10.6", "2.11.12", "2.12.7"), TODO: cross-compile to scala 2.13
     libraryDependencies ++= Seq(
-      "org.scala-js" %%% "scalajs-dom" % "1.0.0"
+      "org.scala-js" %%% "scalajs-dom" % "1.0.0",
+      "com.lihaoyi" %%% "upickle" % "1.0.0"
     ),
     publishMavenStyle := true,
     publishTo := {
@@ -61,7 +62,9 @@ lazy val plugin = project.in(file("sbt-plugin")).
     libraryDependencies ++= {
       // NOTE: Avoid circe as it doesn't respect binary compatibility which causes lots of issues
       Seq(
-        "com.lihaoyi" %%% "upickle" % "0.9.5"
+        "com.lihaoyi" %%% "upickle" % "1.0.0",
+      "org.scalactic" %% "scalactic" % "3.1.1",
+      "org.scalatest" %% "scalatest" % "3.1.1" % "test"
       )
     },
     publishMavenStyle := false,

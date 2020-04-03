@@ -1,9 +1,8 @@
 package com.alexitc
 
-import chrome.Manifest
+import chrome.{Manifest, OptionPickler}
+import OptionPickler._
 import sbt._
-import upickle.default._
-
 object Chrome {
 
   val manifestFileName = "manifest.json"

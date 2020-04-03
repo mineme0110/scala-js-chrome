@@ -1,5 +1,5 @@
 package chrome.permissions
-
+import chrome.OptionPickler.{readwriter, writeJs, ReadWriter => RW}
 sealed trait Permission
 object Permission {
   case class Host(urlPattern: String) extends Permission
@@ -171,6 +171,16 @@ object Permission {
         SyncFileSystem,
         USB
     ).map(x => x.name -> x).toMap
-
   }
+
+  implicit val rw: RW[Permission] = {
+    readwriter[ujson.Value].bimap[Permission]({
+      case api:API =>  writeJs(api.name)
+      case host:Host =>  writeJs(host.urlPattern)
+    },json => {
+      new API(json.str) { //TODO
+      }
+    })
+  }
+
 }
